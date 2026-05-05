@@ -12,7 +12,6 @@ The app is intentionally personal-use focused: it sends from `EMAIL` to the same
 - Falls back to a plain feed digest when Groq is missing or unavailable
 - Generates a clean HTML email
 - Sends the digest to yourself through Gmail SMTP
-- Supports dry runs without sending email
 
 ## Requirements
 
