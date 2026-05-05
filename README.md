@@ -35,12 +35,6 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Create your environment file:
-
-```powershell
-Copy-Item .env.example .env
-```
-
 Update `.env`:
 
 ```env
@@ -54,32 +48,6 @@ FEED_URLS=https://export.arxiv.org/rss/cs.AI,https://export.arxiv.org/rss/cs.CL
 MAX_ITEMS=5
 REQUEST_TIMEOUT=45
 ```
-
-## Usage
-
-Preview the digest without sending email:
-
-```powershell
-.\venv\Scripts\python.exe run.py --no-send
-```
-
-Generate and send the digest to yourself:
-
-```powershell
-.\venv\Scripts\python.exe run.py
-```
-
-## Configuration
-
-| Variable | Required | Description |
-| --- | --- | --- |
-| `EMAIL` | Yes | Gmail address used as both sender and recipient |
-| `APP_PASSWORD` | Yes | Gmail app password for SMTP login |
-| `GROQ_API_KEY` | No | Groq API key used for summarization. Email still sends without it |
-| `GROQ_MODEL` | No | Groq model name. Defaults to `llama-3.1-8b-instant` |
-| `FEED_URLS` | No | Comma-separated RSS feed URLs |
-| `MAX_ITEMS` | No | Maximum number of feed items to summarize |
-| `REQUEST_TIMEOUT` | No | HTTP timeout in seconds |
 
 ## Project Structure
 
@@ -101,31 +69,3 @@ research-digest/
   run.py
 ```
 
-## Troubleshooting
-
-Groq returns `401 Unauthorized`
-
-The Groq key is missing, invalid, expired, or copied with extra spaces. The app will still send a plain digest without AI summarization.
-
-`ModuleNotFoundError: No module named 'feedparser'`
-
-Run the app with the project virtual environment:
-
-```powershell
-.\venv\Scripts\python.exe run.py --no-send
-```
-
-RSS feeds are blocked or unavailable
-
-If feeds cannot be reached, the app skips them and still completes. Check your internet connection, firewall rules, and `FEED_URLS`.
-
-`Missing EMAIL or APP_PASSWORD in .env`
-
-Set both values in `.env`. Gmail requires an app password, not your normal account password.
-
-## Production Notes
-
-- Keep `.env` private and out of version control.
-- Use `--no-send` after changing feeds, models, or templates.
-- For scheduled delivery, run `.\venv\Scripts\python.exe run.py` from Windows Task Scheduler.
-- The current email behavior is self-only by design.
