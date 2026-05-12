@@ -13,8 +13,11 @@ if __name__ == "__main__":
 
     try:
         digest = main(send=not args.no_send)
+        if args.no_send:
+            print("📧 Digest Preview (not sent):\n")
+            print(digest)
+        else:
+            print("✅ Digest successfully generated and sent!")
     except Exception as exc:
         print(f"Error: {exc}", file=sys.stderr)
         sys.exit(1)
-
-    print(digest)

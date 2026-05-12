@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from datetime import date
 from html import escape
-from pathlib import Path
 import re
+from pathlib import Path
 from urllib.parse import urlparse
 
 from src.fetch import Article
@@ -41,7 +41,7 @@ def render_digest_html(digest: str) -> str:
             flush_list()
             continue
 
-        if line.startswith(("- ", "* ", "• ")):
+        if line.startswith(("- ", "* ")):
             list_items.append(
                 f'<li style="margin: 0 0 8px 0;">{_format_inline(line[2:])}</li>'
             )
